@@ -3,13 +3,20 @@
 using std::vector;
 using std::cout;
 
+void PrintBoard (const vector<vector<int>> &board){
+    for(const vector<int> &row: board){
+        for(const int &data: row){
+            cout << data;
+        }
+        cout << "\n";
+    }
+    return;
+}
 int main() {
-    // TODO: Declare a "board" variable here, and store
-    // the data provided above.
     vector<vector<int>> board{{0, 1, 0, 0, 0, 0},
-    {0, 1, 0, 0, 0, 0},
-    {0, 1, 0, 0, 0, 0},
-    {0, 1, 0, 0, 0, 0},
-    {0, 0, 0, 0, 1, 0}};
-    cout << "Hello!" << "\n";
+                              {0, 1, 0, 0, 0, 0},
+                              {0, 1, 0, 0, 0, 0},
+                              {0, 1, 0, 0, 0, 0},
+                              {0, 0, 0, 0, 1, 0}};
+    PrintBoard(board);
 }
