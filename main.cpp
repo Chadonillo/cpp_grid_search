@@ -12,11 +12,17 @@ void PrintBoard (const vector<vector<int>> &board){
     }
     return;
 }
-int main() {
+
+vector<vector<int>> SimpleBoard(){
     vector<vector<int>> board{{0, 1, 0, 0, 0, 0},
                               {0, 1, 0, 0, 0, 0},
                               {0, 1, 0, 0, 0, 0},
                               {0, 1, 0, 0, 0, 0},
                               {0, 0, 0, 0, 1, 0}};
+    return board;
+}
+
+int main() {
+    vector<vector<int>> board = SimpleBoard();
     PrintBoard(board);
 }
