@@ -12,10 +12,20 @@ using std::cout;
 
 enum class State {kEmpty, kObstacle, kUnknown};
 
-void PrintBoard (const vector<vector<int>> &board){
-    for(const vector<int> &row: board){
-        for(const int &data: row){
-            cout << data;
+string CellString(State currState){
+    switch (currState){
+        case State::kObstacle: return "█ ";
+        break;
+        case State::kEmpty: return "- ";
+        break;
+        default: return "? ";
+    }
+}
+
+void PrintBoard(const vector<vector<State>> &board){
+    for(const vector<State> &row: board){
+        for(const State &data: row){
+            cout << CellString(data);
         }
         cout << "\n";
     }
@@ -23,22 +33,30 @@ void PrintBoard (const vector<vector<int>> &board){
     return;
 }
 
-vector<int> ParseLineToVector(string line){
+vector<State> ParseLineToVector(string line){
     istringstream my_stream(line);
-    vector<int> row {};
+    vector<State> row {};
     int boardChar;
     char comma;
     while(my_stream >> boardChar >> comma){
         if(my_stream){
-            row.push_back(boardChar);
+            State currState;
+            switch(boardChar){
+                case 1: currState = State::kObstacle;
+                break;
+                case 0: currState = State::kEmpty;
+                break;
+                default: State::kUnknown;
+            }
+            row.push_back(currState);
         }
     }
     return row;
 }
 
-vector<vector<int>> ReadBoardFile(string fileName){
+vector<vector<State>> ReadBoardFile(string fileName){
     ifstream board_file;
-    vector<vector<int>> board{};
+    vector<vector<State>> board{};
     board_file.open("boards/"+fileName+".board");
     if (board_file){
         string line;
@@ -49,27 +67,7 @@ vector<vector<int>> ReadBoardFile(string fileName){
     return board;
 }
 
-string CellString(State currState){
-    switch (currState){
-        case State::kObstacle: return "⛰️ ";
-        case State::kEmpty: return "0 ";
-        default: return "? ";
-    }
-}
-
-vector<vector<int>> SimpleBoard(){
-    vector<vector<int>> board{{0, 1, 0, 0, 0, 0},
-                              {0, 1, 0, 0, 0, 0},
-                              {0, 1, 0, 0, 0, 0},
-                              {0, 1, 0, 0, 0, 0},
-                              {0, 0, 0, 0, 1, 0}};
-    return board;
-}
-
 int main() {
-    vector<vector<int>> board1 = ReadBoardFile("1");
-    vector<vector<int>> board2 = SimpleBoard();
+    vector<vector<State>> board1 = ReadBoardFile("1");
     PrintBoard(board1);
-    PrintBoard(board2);
-    cout << CellString(State::kObstacle) << "\n";
 }
