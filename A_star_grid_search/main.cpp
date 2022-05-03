@@ -154,20 +154,20 @@ vector<vector<State>> Search(vector<vector<State>> map, Node &startNode, Node &g
         map[currNode.x][currNode.y]=State::kPath;
         if (currNode == goalNode){
             cout << "Goal Found\n";
+            AddStartStop(map, startNode, goalNode);
             return map;
         }
         ExpandNeighbors(currNode, openList, map, goalNode);
         
     }
     cout << "Goal Not Found\n";
-    return map;
+    return vector<vector<State>> {};
 }
 
 int main() {
-    vector<vector<State>> board1 = ReadBoardFile("1");
+    vector<vector<State>> board1 = ReadBoardFile("2");
     Node startNode = Node(0, 0);
     Node goalNode = Node(4, 5);
     vector<vector<State>> solution = Search(board1, startNode, goalNode);
-    AddStartStop(solution, startNode, goalNode);
     PrintBoard(solution);
 }
